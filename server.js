@@ -3,9 +3,13 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const bootcamps = require('./routes/bootcamps');
 const app = express();
+const connectDB = require('./config/db');
 
 // look for enviornment variables
 dotenv.config({ path: './config/config.env' });
+
+// connect to database
+connectDB();
 
 // declaring global middlewares
 if (process.env.NODE_ENV === 'development') {
