@@ -1,18 +1,21 @@
 const mongoose = require('mongoose');
 
-const BootcampSchema = mongoose.Schema({
+const BootcampSchema = new mongoose.Schema({
   name: {
-    unique: true,
+    type: String,
     required: [true, 'Please add a name'],
+    unique: true,
     trim: true,
     maxlength: [50, 'Name can not be more than 50 characters'],
+    // default: 'default name',
   },
   // for url eg:- name:Dev Camper , slug:dev-camper
   slug: String,
-  discription: {
+  description: {
     type: String,
-    required: [true, 'Please add a name'],
+    required: [true, 'Please add a desc'],
     maxlength: [500, 'Name can not be more than 500 characters'],
+    // default: 'default desc',
   },
   website: {
     type: String,
@@ -32,6 +35,7 @@ const BootcampSchema = mongoose.Schema({
   address: {
     type: String,
     required: [true, 'Please add an address'],
+    // default: 'default address',
   },
   location: {
     // GeoJSON Point
@@ -96,4 +100,4 @@ const BootcampSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.Model('Bootcamp', BootcampSchema);
+module.exports = mongoose.model('Bootcamp', BootcampSchema);
