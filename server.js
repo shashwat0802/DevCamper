@@ -1,4 +1,5 @@
 const express = require('express');
+const colors = require('colors');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const bootcamps = require('./routes/bootcamps');
@@ -21,7 +22,16 @@ app.use('/api/v1/bootcamps', bootcamps);
 
 const PORT = process.env.PORT || 5000;
 // listen
-app.listen(
+const server = app.listen(
   PORT,
-  console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV} mode `)
+  console.log(
+    `Server running on port ${PORT} in ${process.env.NODE_ENV} mode`.yellow.bold
+  )
 );
+
+// custom error handling if mongo fail we want the app to crash
+process.on('unhandledRejection', (error, promise) => {
+  console.log(`Error : ${error.message}`);
+  // close the server
+  server.close(() => process.exit(1));
+});
