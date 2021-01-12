@@ -34,7 +34,7 @@ const server = app.listen(
 
 // custom error handling if mongo fail we want the app to crash
 process.on('unhandledRejection', (error, promise) => {
-  console.log(`Error : ${error.message}`);
+  console.log(`Error : ${error.message}`.red.underline.bold);
   // close the server
   server.close(() => process.exit(1));
 });
