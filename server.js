@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const bootcamps = require('./routes/bootcamps');
 const app = express();
 const connectDB = require('./config/db');
+const errorHandler = require('./middleware/error');
 
 // look for enviornment variables
 dotenv.config({ path: './config/config.env' });
@@ -22,6 +23,9 @@ if (process.env.NODE_ENV === 'development') {
 
 // getting routes
 app.use('/api/v1/bootcamps', bootcamps);
+
+// error handler middle below routes
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 // listen
