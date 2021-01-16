@@ -6,12 +6,18 @@ const errorHandler = (err, req, res, next) => {
   error.message = err.message;
 
   // log to console for dev
-  console.log(err);
+  console.log(err.red);
 
   // only next(err) in controller proper error handling is done here
 
   // mongoose bad obejectID
   if (err.name === 'CastError') {
+    const message = `Resource not found with id ${err.value}`;
+    error = new ErrorResponse(message, 404);
+  }
+
+  // when id is formatted correctly but the id is incorrect
+  if (err.name === 'ReferenceError') {
     const message = `Resource not found with id ${err.value}`;
     error = new ErrorResponse(message, 404);
   }
@@ -23,8 +29,8 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // validation error
-  if ((err.name = 'ValidationError')) {
-    const message = Object.values(err.errors);
+  if (err.name === 'ValidationError') {
+    const message = Object.values(err.errors).map((val) => val.message);
     error = new ErrorResponse(message, 400);
   }
 
