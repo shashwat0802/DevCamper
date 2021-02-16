@@ -1,14 +1,15 @@
 const express = require('express');
 const colors = require('colors');
 const dotenv = require('dotenv');
-const morgan = require('morgan');
-const bootcamps = require('./routes/bootcamps');
-const app = express();
-const connectDB = require('./config/db');
-const errorHandler = require('./middleware/error');
 
 // look for enviornment variables
 dotenv.config({ path: './config/config.env' });
+
+const morgan = require('morgan');
+const app = express();
+const connectDB = require('./config/db');
+const errorHandler = require('./middleware/error');
+const bootcamps = require('./routes/bootcamps');
 
 // body parser
 app.use(express.json());
