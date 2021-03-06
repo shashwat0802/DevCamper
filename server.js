@@ -10,6 +10,7 @@ const app = express();
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 const bootcamps = require('./routes/bootcamps');
+const auth = require('./routes/auth');
 
 // body parser
 app.use(express.json());
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // getting routes
 app.use('/api/v1/bootcamps', bootcamps);
+app.use('/api/v1/auth', auth);
 
 // error handler middle below routes
 app.use(errorHandler);
