@@ -1,5 +1,6 @@
 const express = require('express');
 const colors = require('colors');
+const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 
 // look for enviornment variables
@@ -14,6 +15,8 @@ const auth = require('./routes/auth');
 
 // body parser
 app.use(express.json());
+// cookies
+app.use(cookieParser());
 
 // connect to database
 connectDB();
