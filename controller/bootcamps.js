@@ -79,14 +79,12 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
     };
   }
 
-  res
-    .status(200)
-    .json({
-      success: true,
-      count: bootcamp.length,
-      pagination,
-      data: bootcamp,
-    });
+  res.status(200).json({
+    success: true,
+    count: bootcamp.length,
+    pagination,
+    data: bootcamp,
+  });
 });
 
 // @desc    get single Bootcamps
@@ -126,10 +124,12 @@ exports.editBootcamp = asyncHandler(async (req, res, next) => {
 // @route   DELETE /api/v1/bootcamps/:id
 // @access  Private
 exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
-  const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+  const bootcamp = await Bootcamp.findById(req.params.id);
   if (!bootcamp) {
     return next(err);
   }
+
+  bootcamp.remove();
   res.status(200).json({ success: true, data: bootcamp });
 });
 
