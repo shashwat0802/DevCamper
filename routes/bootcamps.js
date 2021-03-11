@@ -13,6 +13,10 @@ const {
   getBootcampsInRadius,
 } = require('../controller/bootcamps');
 
+const Bootcamp = require('../models/Bootcamps');
+
+const advancedResults = require('../middleware/advancedResults');
+
 // re-route into other resource router
 router.use('/:bootcampId/courses', courseRouter);
 
@@ -20,7 +24,7 @@ router.route('/radius/:zipcode/:distance').get(getBootcampsInRadius);
 
 router
   .route('/')
-  .get(getBootcamps)
+  .get(advancedResults(Bootcamp, 'courses'), getBootcamps)
   .post(protect, authorize('publisher', 'admin'), createBootcamp);
 
 router
